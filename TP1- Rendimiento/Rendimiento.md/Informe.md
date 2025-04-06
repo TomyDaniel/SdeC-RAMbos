@@ -131,3 +131,138 @@ El **Ryzen 9 7950X** demuestra ser superior en términos de tiempo de compilaci�
 
 
 ---
+
+## Profiling
+
+
+El objetivo de este estudio es analizar el rendimiento del código mediante herramientas de **profiling**. Para ello, utilizamos `gprof` para medir el tiempo de ejecución de las funciones en dos versiones de código escritas en **C**: `test_gprof.c` y `test_gprof_new.c`.
+
+
+### Metodología
+
+
+Para obtener los perfiles de ejecución seguimos estos pasos:
+
+
+1. **Compilación del código con soporte para profiling:**
+
+
+```
+gcc -pg test_gprof.c -o test_gprof
+gcc -pg test_gprof_new.c -o test_gprof_new
+```
+
+
+2. **Ejecución de los programas para generar los archivos de profiling:**
+
+
+```
+./test_gprof
+./test_gprof_new
+```
+
+
+3. **Análisis del rendimiento con ``:**
+
+
+```
+gprof test_gprof gmon.out > profile_test_gprof.txt
+gprof test_gprof_new gmon.out > profile_test_gprof_new.txt
+```
+
+
+### Analisis del codigo:
+
+
+#### 🔹 Código `test_gprof.c`
+
+
+Este código contiene varias funciones con bucles grandes, diseñados para consumir tiempo de CPU. Se destacan:
+
+
+- `func1()`, con un bucle de `0xffffffff` iteraciones.
+- `func2()`, con un bucle de `0xafffffff` iteraciones.
+- `main()`, que también contiene un bucle antes de llamar a estas funciones.
+
+
+**Resultados esperados en el profiling:** La mayor parte del tiempo de ejecución será consumido por `func1()` y `func2()` debido a la cantidad de iteraciones en sus bucles.
+
+
+#### 🔹 Código `test_gprof_new.c`
+
+
+Este archivo solo define `new_func1()`, que tiene:
+
+
+- Un `printf()` para indicar su ejecución.
+- Un bucle de `0xfffff66` iteraciones (menor que `func1()` en `test_gprof.c`).
+
+
+**Resultados esperados en el profiling:** `new_func1()` tendrá un menor impacto en el tiempo total de ejecución debido a su menor cantidad de iteraciones.
+
+
+### Resultados del profiling:
+
+
+Se puede notar que `test_gprof_new.c` tiene un menor tiempo de ejecución en comparación con `test_gprof.c`, lo que era esperado debido a la menor cantidad de iteraciones en el bucle de `new_func1()`. La optimización de bucles es clave para mejorar el rendimiento.
+Las experiencias se adjuntan en [profiling.md](profiling.md)
+
+
+
+
+### Conclusion Profiling:
+
+
+El uso de `gprof` nos permitió identificar qué funciones consumen más tiempo de ejecución. Se observó que reducir el número de iteraciones en los bucles disminuye significativamente el tiempo total del programa. Esta información es útil para optimizar el rendimiento de aplicaciones críticas en tiempo de ejecución.
+
+
+En particular, `func1()` en `test_gprof.c` fue la función con mayor tiempo de procesamiento debido a su gran cantidad de iteraciones, mientras que `new_func1()` en `test_gprof_new.c` mostró una mejora significativa al reducir las iteraciones.
+
+
+Este análisis demuestra la importancia de perfilar y optimizar el código para mejorar la eficiencia de ejecución.
+
+
+---
+
+
+## Medición de performance ESP32
+
+
+Se analizó cómo varía el tiempo de ejecución al modificar la frecuencia del procesador en una **ESP32** simulada en [Wokwi](https://wokwi.com/).
+
+
+### **Configuración**
+Se ejecutó un código en Arduino para medir el tiempo de una función de suma de enteros a distintas frecuencias:
+- **80 MHz**
+- **160 MHz**
+- **240 MHz**
+
+
+El objetivo fue observar si el aumento de la frecuencia de la CPU produce una reducción proporcional en el tiempo de ejecución.
+
+
+Los resultados obtenidos se muestran en la siguiente imagen:
+
+
+![alt text](image.png)
+
+
+Ademas de utilizar el simulador, pudimos tener acceso a una ESP32 fisica. Se testeo con el mismo codigo utilizado en el simulador y se noto una gran diferencia con respecto a los tiempos obtenidos entre uno y otro, siendo la placa mucho mas veloz que el simulador 
+
+![alt text](image-1.png)
+
+![alt text](image-2.png)
+
+
+---
+
+
+## Conclusión
+
+
+- Al **aumentar la frecuencia** del microcontrolador, se observa una mejora en el rendimiento.
+- Al **triplicar la frecuencia** (de 80 MHz a 240 MHz), los tiempos de ejecución se reducen en un factor cercano a **tres**.
+- Las **operaciones en punto flotante** presentan tiempos de ejecución más altos que los enteros, debido a su mayor complejidad computacional.
+
+
+Este trabajo permitió comprender mejor cómo varía el rendimiento en función de distintos factores en procesadores de computadora y microcontroladores.
