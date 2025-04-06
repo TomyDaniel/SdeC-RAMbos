@@ -49,3 +49,69 @@ Todas estas rutinas reciben parámetros por stack y devuelven resultados en EAX,
 
 ###  b. Capa intermedia: C
 El archivo `libgini_wrapper.c` contiene funciones que actúan como puente entre Python y ensamblador. Estas funciones llaman a las rutinas ASM y permiten compilar una biblioteca compartida (`libgini.so`).
+
+###  c. Capa superior: Python
+El programa `gini_cliente.py` presenta un menú interactivo y permite al usuario:
+- Ingresar un valor manual o consultar el índice GINI desde una API REST (`API.py`).
+- Seleccionar una operación matemática.
+- Ver el resultado calculado por ASM, mostrado por pantalla.
+
+---
+
+##  5. Test unitario y uso de GDB
+
+Se implementó un archivo `test/test_stack.c` independiente que permite:
+- Llamar directamente a la función `sumar_uno` desde C.
+- Visualizar el estado del stack antes, durante y después de la llamada.
+- Usar GDB para observar el comportamiento real del stack y los registros.
+
+**Compilación del test:**
+```bash
+nasm -f elf32 -o Ensamblador/sumar_uno.o Ensamblador/sumar_uno.asm
+gcc -m32 -g -o test/test_stack test/test_stack.c Ensamblador/sumar_uno.o
+```
+
+**Uso con GDB:**
+```bash
+gdb test/test_stack
+```
+
+**Comandos útiles en GDB:**
+```
+break main
+run
+next
+step
+info registers
+x/20x $esp
+finish
+```
+
+---
+
+##  6. Instrucciones de compilación y ejecución
+
+### 1. Compilar funciones en ensamblador:
+```bash
+nasm -f elf32 -o Ensamblador/sumar_uno.o Ensamblador/sumar_uno.asm
+...
+```
+
+### 2. Compilar biblioteca compartida:
+```bash
+gcc -m32 -fPIC -shared -o libgini.so C/libgini_wrapper.c Ensamblador/*.o
+```
+
+### 3. Ejecutar el programa en Python:
+```bash
+cd Python
+python3 gini_cliente.py
+```
+
+---
+
+##  7. Conclusión
+
+El proyecto permitió reforzar los conceptos de interacción entre lenguajes de alto y bajo nivel, comprender en profundidad la convención `cdecl`, y aplicar técnicas de debugging con GDB. Además, se incorporó el uso de una API REST real, integrando conocimientos modernos de desarrollo web con programación de sistemas.
+
+
