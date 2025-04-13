@@ -1,14 +1,11 @@
-; sumar_uno.asm – versión x86_64
 global sumar_uno
 section .text
 
 sumar_uno:
-    ; Parámetro está en xmm0 (ABI x86_64 para float)
-    ; Sumamos 1.0f usando instrucciones SSE
-
-    movss xmm1, dword [rel uno]
-    addss xmm0, xmm1      ; xmm0 = xmm0 + 1.0f
+    push ebp
+    mov ebp, esp
+    fld dword [ebp + 8]     ; cargar parámetro float desde stack
+    fld1                    ; cargar 1.0
+    faddp st1, st0          ; sumar y dejar en st(0)
+    pop ebp
     ret
-
-section .data
-uno: dd 1.0
