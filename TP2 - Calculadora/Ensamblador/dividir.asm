@@ -2,6 +2,10 @@ global dividir
 section .text
 
 dividir:
-    ; xmm0 = a, xmm1 = b
-    divss xmm0, xmm1
+    push ebp
+    mov ebp, esp
+    fld dword [ebp + 8]     ; cargar a
+    fld dword [ebp + 12]    ; cargar b
+    fdivp st1, st0          ; a / b
+    pop ebp
     ret

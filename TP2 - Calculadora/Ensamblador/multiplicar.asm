@@ -2,6 +2,10 @@ global multiplicar
 section .text
 
 multiplicar:
-    ; xmm0 = a, xmm1 = b
-    mulss xmm0, xmm1
+    push ebp
+    mov ebp, esp
+    fld dword [ebp + 8]     ; cargar parámetro a
+    fld dword [ebp + 12]    ; cargar parámetro b
+    fmulp st1, st0          ; a * b
+    pop ebp
     ret
