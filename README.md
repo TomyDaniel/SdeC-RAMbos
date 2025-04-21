@@ -2,7 +2,7 @@
 
 ## Grupo: *RAMbos*
 
-Desarrollo del primer trabajo practico de Sistemas de Computación.
+Desarrollo de los trabajos practicos de Sistemas de Computación.
 
 
 ### Alumnos:
