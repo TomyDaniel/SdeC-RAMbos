@@ -1,0 +1,77 @@
+cpu:
+                       13th Gen Intel(R) Core(TM) i5-13420H, 492 MHz
+                       13th Gen Intel(R) Core(TM) i5-13420H, 2133 MHz
+                       13th Gen Intel(R) Core(TM) i5-13420H, 2005 MHz
+                       13th Gen Intel(R) Core(TM) i5-13420H, 720 MHz
+                       13th Gen Intel(R) Core(TM) i5-13420H, 400 MHz
+                       13th Gen Intel(R) Core(TM) i5-13420H, 3039 MHz
+                       13th Gen Intel(R) Core(TM) i5-13420H, 396 MHz
+                       13th Gen Intel(R) Core(TM) i5-13420H, 400 MHz
+                       13th Gen Intel(R) Core(TM) i5-13420H, 2216 MHz
+                       13th Gen Intel(R) Core(TM) i5-13420H, 2245 MHz
+                       13th Gen Intel(R) Core(TM) i5-13420H, 2153 MHz
+                       13th Gen Intel(R) Core(TM) i5-13420H, 2188 MHz
+keyboard:
+  /dev/input/event7    Integrated Technology Express ITE Device(8176)
+  /dev/input/event3    AT Translated Set 2 keyboard
+mouse:
+  /dev/input/mice      ELAN0001:00 04F3:327E Mouse
+  /dev/input/mice      ELAN0001:00 04F3:327E Touchpad
+monitor:
+                       BOE NJ LCD Monitor
+graphics card:
+                       nVidia VGA compatible controller
+                       Intel VGA compatible controller
+sound:
+                       Intel Multimedia audio controller
+                       nVidia Audio device
+storage:
+                       Samsung Electronics Non-Volatile memory controller
+network:
+  wlp8s0               Realtek WLAN controller
+  enp7s0               Realtek RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller
+network interface:
+  wlp8s0               Ethernet network interface
+  lo                   Loopback network interface
+  enp7s0               Ethernet network interface
+disk:
+  /dev/nvme0n1         Samsung Electronics Disk
+partition:
+  /dev/nvme0n1p1       Partition
+  /dev/nvme0n1p2       Partition
+  /dev/nvme0n1p3       Partition
+  /dev/nvme0n1p4       Partition
+  /dev/nvme0n1p5       Partition
+usb controller:
+                       Intel USB Controller
+bios:
+                       BIOS
+bridge:
+                       Intel PCI bridge
+                       Intel ISA bridge
+                       Intel PCI bridge
+                       Intel PCI bridge
+                       Intel Host bridge
+                       Intel PCI bridge
+hub:
+                       Linux Foundation 2.0 root hub
+                       Linux Foundation 3.0 root hub
+memory:
+                       Main Memory
+bluetooth:
+                       Realtek Bluetooth Radio
+unknown:
+                       FPU
+                       DMA controller
+                       PIC
+                       Keyboard controller
+                       PS/2 Controller
+                       Intel Signal processing controller
+                       Intel Communication controller
+                       Intel Serial bus controller
+                       Intel Serial bus controller
+                       Intel Serial bus controller
+                       Intel RAM memory
+                       Intel SMBus
+                       Intel Signal processing controller
+                       Acer Integrated Camera
